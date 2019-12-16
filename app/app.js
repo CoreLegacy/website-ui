@@ -16,7 +16,7 @@ let coreLegacy = angular.module("coreLegacy", [
         $stateProvider
             .state("home", {
                 url: "/",
-                templateUrl: "home/home.html",
+                templateUrl: "app/home/home.html",
                 controller: "HomeController",
                 controllerAs: "vm"
             });
