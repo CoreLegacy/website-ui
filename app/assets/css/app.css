@@ -163,7 +163,7 @@ li.nav-item {
 #mission-overlay {
     font-family: 'Dancing Script', cursive;
     font-family: 'Marck Script', cursive !important;
-    font-size: 220%;
+    font-size: 3vw;
     overflow-wrap: break-word;
     padding: 35px;
     text-align: left;
