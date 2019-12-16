@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="coreLegacy" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="coreLegacy" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="coreLegacy" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en" ng-app="coreLegacy"> <!--<![endif]-->
+<head>
+    <title>Core Legacy</title>
+
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat|Open+Sans|Oswald|Raleway|Roboto&display=swap|Dancing+Script&display=swap|" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Kalam|Marck+Script&display=swap" rel="stylesheet">
+    <link href="../lib/html5-boilerplate/dist/css/normalize.css" rel="stylesheet">
+    <link href="../lib/html5-boilerplate/dist/css/main.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/app.css" rel="stylesheet">
+    <link href="assets/css/boilerplate.css" rel="stylesheet">
+
+    <script src="../lib/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header class="container">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+
+            <a class="navbar-brand m-r-20" href="#">Core Legacy</a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="btn btn-donate my-2 my-sm-0"
+                           href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=QL7W6JN2BFQQN&currency_code=USD&source=url"
+                           id="header-donate"
+                           target="_blank">
+                            Donate Now!
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-right">
+                    <li class="nav-item dropdown active">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="about-us-dropdown" role="button">
+                            About us
+                        </a>
+                        <div aria-labelledby="about-us-dropdown" class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Our Story</a>
+                            <a class="dropdown-item" href="#">Our Team</a>
+                            <a class="dropdown-item" href="#">Our Partners</a>
+                            <a class="dropdown-item" href="#">Contact Us</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" id="events-dropdown" role="button">
+                            Events
+                        </a>
+                        <div aria-labelledby="events-dropdown" class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Cookie Sale</a>
+                            <a class="dropdown-item" href="#">2020 Retreat</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" id="participation-dropdown" role="button">
+                            Make a Difference
+                        </a>
+                        <div aria-labelledby="participation-dropdown" class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Sponsor a member</a>
+                            <a class="dropdown-item" href="#">Become a mentor</a>
+                            <a class="dropdown-item" href="#">Volunteer at an event</a>
+                            <a class="dropdown-item" href="#">Financial Support</a>
+                        </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Log In</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main ui-view></main>
+
+    <footer>
+        <div class="w-80 m-auto p-t-20">
+            <section class="row">
+                <div class="col-md-3">
+                    <h3>Stay in Touch</h3>
+                    <form class="form-group" id="stay-in-touc-form">
+                        <input class="form-control" id="firstName" name="firstName" placeholder="First Name" required type="text"/>
+                        <input class="form-control" id="lastName" name="lastName" placeholder="Last Name" required type="text"/>
+                        <input class="form-control" id="email" name="email" placeholder="Email Address" required type="email"/>
+                        <input class="btn btn-primary-alt" type="submit" value="Subscribe"/>
+                    </form>
+                </div>
+                <div class="col-md-3" id="contact-info">
+                    <h5>Address</h5>
+                    <p>
+                        <a href="https://www.google.fr/maps/place/5460+Bourbon+St+Columbus,+OH+43235"
+                           target="_blank">
+                            5460 Bourbon St <br>
+                            Columbus, OH 43235
+                        </a>
+                    </p>
+                    <h5>Phone Number</h5>
+                    <a href="tel: 6148058042">(614)805-8042</a>
+                    <h5>Hours</h5>
+                    <p>All the live-long day</p>
+                </div>
+                <div class="col-md-3">
+                    <iframe allowfullscreen=""
+                            frameborder="0"
+                            height="450"
+                            id="location"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3053.7336070967826!2d-83.13081008465535!3d40.05904547940833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x883893aeb5ce8dbb%3A0xecd428db3f5caa0b!2s5460%20Bourbon%20St%2C%20Columbus%2C%20OH%2043221!5e0!3m2!1sen!2sus!4v1576468261468!5m2!1sen!2sus"
+                            style="border:0;"
+                            width="600">
+                    </iframe>
+                </div>
+            </section>
+            <section class="text-center" id="footer-bottom">
+                &copy; Core Legacy 2019
+                &nbsp; | &nbsp; <a href="mailto:airielle.dotson@gmail.com?subject=Core Legacy Correspondence">Contact Us</a>
+            </section>
+        </div>
+    </footer>
+
+    <script src="../lib/angular/angular.js"></script>
+    <script src="../lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="app.js"></script>
+    <script src="home/homeController.js"></script>
+    <script src="donate/donateController.js"></script>
+</body>
+</html>

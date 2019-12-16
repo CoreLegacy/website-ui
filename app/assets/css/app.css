@@ -1,0 +1,185 @@
+/* app css stylesheet */
+:root {
+    --accent-color: #DFA06B;
+    --primary-color: #29253E;
+    --secondary-color: #608073;
+    --primary-color-alt: #364451;
+    --secondary-color-alt: #A49775;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+}
+
+header {
+    background-color: white;
+}
+
+header > nav.navbar {
+    background-color: white;
+}
+
+#header-donate {
+    display: inline-block;
+    float: left;
+}
+
+nav.navbar {
+    font-size: 120%;
+    /*width: 80%;*/
+}
+
+.navbar-brand {
+    font-size: 122%;
+    font-weight: bold;
+}
+
+body > main {
+    margin: 71px auto 10px auto;
+    max-width: 80%;
+}
+
+footer {
+    background-color: var(--secondary-color);
+    padding: 10px;
+}
+
+footer > section {
+    margin: auto;
+    width: 80%;
+}
+
+footer *, footer a {
+    color: white;
+}
+
+.body-content {
+    margin: 50px auto 50px auto;
+    max-width: 80%;
+}
+
+.navbar * {
+    color: black;
+}
+
+.btn {
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+}
+
+.btn.btn-donate {
+    background-color: var(--secondary-color);
+}
+
+.btn.btn-primary {
+    background-color: var(--primary-color);
+}
+
+.btn.btn-primary-alt {
+    background-color: var(--primary-color-alt);
+}
+
+.btn.btn-secondary {
+    background-color: var(--secondary-color);
+}
+
+.btn.btn-accent {
+    background-color: var(--accent-color);
+}
+
+.btn.btn-secondary-alt {
+    background-color: var(--secondary-color-alt);
+}
+
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown > .dropdown-menu {
+    border: none;
+    font-size: 90%;
+    margin-top: -3px;
+}
+
+li.nav-item {
+    font-size: 95%;
+    margin: 0 15px;
+}
+
+/* Container holding the image and the text */
+.overlay-container {
+    color: white;
+    position: relative;
+    text-align: center;
+}
+
+/* Bottom left text */
+.bottom-left {
+    bottom: 8px;
+    left: 16px;
+    position: absolute;
+}
+
+/* Top left text */
+.top-left {
+    left: 16px;
+    position: absolute;
+    top: 8px;
+}
+
+/* Top right text */
+.top-right {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+}
+
+/* Bottom right text */
+.bottom-right {
+    bottom: 8px;
+    position: absolute;
+    right: 16px;
+}
+
+/* Centered text */
+.centered {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#stay-in-touc-form > input {
+    margin-bottom: 8px;
+}
+
+#mission-overlay {
+    font-family: 'Dancing Script', cursive;
+    font-family: 'Marck Script', cursive !important;
+    font-size: 220%;
+    overflow-wrap: break-word;
+    padding: 35px;
+    text-align: left;
+    white-space: normal;
+    width: 75%;
+}
+
+#contact-info p {
+    font-size: 80%;
+}
+
+#location {
+    max-height: 250px;
+    width: 100%;
+}
+
+#footer-bottom {
+    margin-top: 20px;
+}
