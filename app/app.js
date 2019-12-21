@@ -8,6 +8,15 @@ let coreLegacy = angular.module("coreLegacy", [
 (function () {
     "use strict";
     
+    coreLegacy.run(['$rootScope', '$state', '$transitions',
+        function ($rootScope, $state, $transitions) {
+            $rootScope.$state = $state.current;
+            $transitions.onSuccess({}, function($transitions) {
+                $rootScope.$state = $transitions.$to();
+            });
+        }
+    ]);
+    
     coreLegacy.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
         // For any unmatched url, redirect to root
         $urlRouterProvider.otherwise("/");
@@ -18,6 +27,24 @@ let coreLegacy = angular.module("coreLegacy", [
                 url: "/",
                 templateUrl: "app/home/home.html",
                 controller: "HomeController",
+                controllerAs: "vm"
+            })
+            .state("login", {
+                url: "/login",
+                templateUrl: "app/login/login.html",
+                controller: "LoginController",
+                controllerAs: "vm"
+            })
+            .state("register", {
+                url: "/register",
+                templateUrl: "app/register/register.html",
+                controller: "RegisterController",
+                controllerAs: "vm"
+            })
+            .state("donate", {
+                url: "/donate",
+                templateUrl: "app/donate/donate.html",
+                controller: "DonateController",
                 controllerAs: "vm"
             });
     }]);

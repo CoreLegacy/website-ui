@@ -386,7 +386,7 @@ export interface Ng1ViewDeclaration extends _ViewDeclaration {
      * }
      *
      * .state('messages', {
-     *   // use the <nav-bar></nav-bar> component for the view named 'header'
+     *   // use the <header-bar></header-bar> component for the view named 'header'
      *   // use the <message-list></message-list> component for the view named 'content'
      *   views: {
      *     header: { component: 'NavBar' },
@@ -396,7 +396,7 @@ export interface Ng1ViewDeclaration extends _ViewDeclaration {
      *
      * .state('contacts', {
      *   // Inside a "views:" block, a bare string "NavBar" is shorthand for { component: "NavBar" }
-     *   // use the <nav-bar></nav-bar> component for the view named 'header'
+     *   // use the <header-bar></header-bar> component for the view named 'header'
      *   // use the <contact-list></contact-list> component for the view named 'content'
      *   views: {
      *     header: 'NavBar',

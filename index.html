@@ -26,7 +26,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <header class="container">
+    <header class="container" ng-controller="HeaderController as vm">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light">
 
             <a class="navbar-brand m-r-20" href="#">Core Legacy</a>
@@ -37,10 +37,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="btn btn-donate my-2 my-sm-0"
-                           href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=QL7W6JN2BFQQN&currency_code=USD&source=url"
-                           id="header-donate"
-                           target="_blank">
+                        <a ng-hide="$state.name === 'donate'" class="btn btn-donate my-2 my-sm-0"
+                           ui-sref="donate"
+                           id="header-donate">
                             Donate Now!
                         </a>
                     </li>
@@ -78,7 +77,7 @@
                         </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Log In</a>
+                        <a class="nav-link" ui-sref="login">Log In</a>
                     </li>
                 </ul>
             </div>
@@ -87,7 +86,7 @@
 
     <main ui-view></main>
 
-    <footer>
+    <footer ng-controller="FooterController as vm">
         <div class="w-80 m-auto p-t-20">
             <section class="row">
                 <div class="col-md-3">
@@ -126,7 +125,7 @@
             </section>
             <section class="text-center" id="footer-bottom">
                 &copy; Core Legacy 2019
-                &nbsp; | &nbsp; <a href="mailto:airielle.dotson@gmail.com?subject=Core Legacy Correspondence">Contact Us</a>
+                &nbsp; | &nbsp; <a href="mailto:airielle.dotson@gmail.com?subject=Core Legacy">Contact Us</a>
             </section>
         </div>
     </footer>
@@ -134,7 +133,14 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="app/app.js"></script>
+    <script src="app/config.js"></script>
+    <script src="app/header/headerController.js"></script>
+    <script src="app/footer/footerController.js"></script>
     <script src="app/home/homeController.js"></script>
     <script src="app/donate/donateController.js"></script>
+    <script src="app/login/loginController.js"></script>
+    <script src="app/services/apiService.js"></script>
+    <script src="app/services/dataService.js"></script>
+    <script src="app/services/identityService.js"></script>
 </body>
 </html>
