@@ -25,26 +25,74 @@ let coreLegacy = angular.module("coreLegacy", [
         $stateProvider
             .state("home", {
                 url: "/",
-                templateUrl: "app/home/home.html",
+                templateUrl: "app/components/home/home.html",
                 controller: "HomeController",
                 controllerAs: "vm"
             })
             .state("login", {
                 url: "/login",
-                templateUrl: "app/login/login.html",
+                templateUrl: "app/components/login/login.html",
                 controller: "LoginController",
                 controllerAs: "vm"
             })
             .state("register", {
                 url: "/register",
-                templateUrl: "app/register/register.html",
+                templateUrl: "app/components/register/register.html",
                 controller: "RegisterController",
                 controllerAs: "vm"
             })
             .state("donate", {
                 url: "/donate",
-                templateUrl: "app/donate/donate.html",
+                templateUrl: "app/components/donate/donate.html",
                 controller: "DonateController",
+                controllerAs: "vm"
+            })
+            .state("about-contact", {
+                url: "/about/contact",
+                templateUrl: "app/components/about/contact/contact.html",
+                controller: "ContactController",
+                controllerAs: "vm"
+            })
+            .state("about-partners", {
+                url: "/about/partners",
+                templateUrl: "app/components/about/partners/partners.html",
+                controller: "PartnersController",
+                controllerAs: "vm"
+            })
+            .state("about-story", {
+                url: "/about/story",
+                templateUrl: "app/components/about/story/story.html",
+                controller: "StoryController",
+                controllerAs: "vm"
+            })
+            .state("about-team", {
+                url: "/about/team",
+                templateUrl: "app/components/about/team/team.html",
+                controller: "TeamController",
+                controllerAs: "vm"
+            })
+            .state("contribute-financial", {
+                url: "/contribute/financial",
+                templateUrl: "app/components/contribute/financial/financial.html",
+                controller: "FinancialController",
+                controllerAs: "vm"
+            })
+            .state("contribute-mentor", {
+                url: "/contribute/mentor",
+                templateUrl: "app/components/contribute/mentor/mentor.html",
+                controller: "MentorController",
+                controllerAs: "vm"
+            })
+            .state("contribute-sponsor", {
+                url: "/contribute/sponsor",
+                templateUrl: "app/components/contribute/sponsor/sponsor.html",
+                controller: "SponsorController",
+                controllerAs: "vm"
+            })
+            .state("contribute-volunteer", {
+                url: "/contribute/volunteer",
+                templateUrl: "app/components/contribute/volunteer/volunteer.html",
+                controller: "VolunteerController",
                 controllerAs: "vm"
             });
     }]);
