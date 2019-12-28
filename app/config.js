@@ -3,7 +3,7 @@
     
     let url = window.location.href;
     console.log("Current Url: " + url);
-    
+    //
     if (url.indexOf("localhost") > -1) {
         console.log("Currently in the localhost environment");
         coreLegacy.constant("ENVIRONMENT", "DEV");
