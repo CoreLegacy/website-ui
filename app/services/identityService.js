@@ -10,7 +10,9 @@
         const TITLE_KEY = "title";
         const CLIENT_TOKEN = "clientToken";
         
-        function User() {
+        let onUpdateCallback = null;
+        
+        function User(userData) {
             this.SetAll = setAll;
             this.Role = getRole;
             this.Privileges = getPrivileges;
@@ -19,6 +21,14 @@
             this.Email = getEmail;
             this.Title = getTitle;
             this.ClientToken = getClientToken;
+            
+            if (userData) {
+                DataService.Session.Save(FIRST_NAME_KEY, userData.first_name);
+                DataService.Session.Save(LAST_NAME_KEY, userData.last_name);
+                DataService.Session.Save(EMAIL_KEY, userData.email);
+                DataService.Session.Save(ROLE_KEY, userData.role);
+                DataService.Session.Save(PRIVILEGES_KEY, userData.privileges);
+            }
         }        
     
         function setAll(user) {
@@ -28,11 +38,18 @@
             setEmail(user.Email);
             setRole(user.Role);
             setPrivileges(user.Privileges);
-            setClientToken(user.ClientToken)
+            setClientToken(user.ClientToken);
+            
+            if (onUpdateCallback)
+                onUpdateCallback(getUser());
         }
         
         function setClientToken(token) {
             let result = DataService.Session.Save(CLIENT_TOKEN, token);
+    
+            if (onUpdateCallback)
+                onUpdateCallback(getUser());
+            
             return result;
         }
         
@@ -43,6 +60,10 @@
         
         function setRole(role) {
             let result = DataService.Session.Save(ROLE_KEY, role);
+    
+            if (onUpdateCallback)
+                onUpdateCallback(getUser());
+    
             return result;
         }
         
@@ -56,6 +77,10 @@
                 privileges = privileges.split(",");
             
             let result = DataService.Session.Save(PRIVILEGES_KEY, privileges);
+    
+            if (onUpdateCallback)
+                onUpdateCallback(getUser());
+    
             return result;
         }
         
@@ -69,6 +94,10 @@
     
         function setFirstName(firstName) {
             let result = DataService.Session.Save(FIRST_NAME_KEY, firstName);
+    
+            if (onUpdateCallback)
+                onUpdateCallback(getUser());
+    
             return result;
         }
     
@@ -79,6 +108,10 @@
     
         function setLastName(lastName) {
             let result = DataService.Session.Save(LAST_NAME_KEY, lastName);
+    
+            if (onUpdateCallback)
+                onUpdateCallback(getUser());
+    
             return result;
         }
     
@@ -89,6 +122,10 @@
     
         function setEmail(email) {
             let result = DataService.Session.Save(EMAIL_KEY, email);
+    
+            if (onUpdateCallback)
+                onUpdateCallback(getUser());
+    
             return result;
         }
     
@@ -99,6 +136,10 @@
     
         function setTitle(title) {
             let result = DataService.Session.Save(TITLE_KEY, title);
+    
+            if (onUpdateCallback)
+                onUpdateCallback(getUser());
+    
             return result;
         }
     
@@ -113,9 +154,36 @@
             
             return new User();
         }
+        
+        function setUser(userData) {
+            let user = new User(userData);
+    
+            if (onUpdateCallback)
+                onUpdateCallback(user);
+    
+            return user;
+        }
+        
+        function clearUser() {
+            setFirstName(null);
+            setLastName(null);
+            setEmail(null);
+            setRole(null);
+            setPrivileges(null);
+    
+            if (onUpdateCallback)
+                onUpdateCallback(null);
+        }
+        
+        function onUserUpdate(callback) {
+            onUpdateCallback = callback;
+        }
     
         return {
-            CurrentUser: getUser
+            CurrentUser: getUser,
+            SetUser: setUser,
+            ClearUser: clearUser,
+            OnUserUpdate: onUserUpdate
         };
     }]);
     

@@ -1,9 +1,12 @@
 (function () {
     "use strict";
     
-    coreLegacy.controller("HomeController", ["$window", function($window) {
+    coreLegacy.controller("HomeController", ["ViewService", function(ViewService) {
         let vm = this;
-        vm.Message = 'hello world';
+        vm.Media = ViewService.Media;
+        vm.Texts = ViewService.Texts;
+        vm.ViewModel = ViewService.LoadViewModel("home", vm);
+        
     }]);
     
 })(coreLegacy);

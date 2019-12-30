@@ -44,6 +44,10 @@
     
             return success;
         }
+        
+        function clear(storage) {
+            $window[storage].clear();
+        }
     
         persistent.get = function (key) {
             return get(LOCAL_STORAGE, key);
@@ -55,6 +59,10 @@
     
         persistent.remove = function (key) {
             return remove(LOCAL_STORAGE, key);
+        };
+        
+        persistent.clear = function () {
+            return clear(LOCAL_STORAGE);
         };
     
         let session = {};
@@ -69,17 +77,23 @@
         session.remove = function (key) {
             return remove(SESSION_STORAGE, key);
         };
+        
+        session.clear = function () {
+            return clear(SESSION_STORAGE);
+        };
     
         return {
             Persistent: {
                 Get: persistent.get,
                 Save: persistent.save,
-                Remove: persistent.remove
+                Remove: persistent.remove,
+                Clear: persistent.clear
             },
             Session: {
                 Get: session.get,
                 Save: session.save,
-                Remove: session.remove
+                Remove: session.remove,
+                Clear: session.clear
             }
         };
     }]);

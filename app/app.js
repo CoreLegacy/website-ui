@@ -10,9 +10,9 @@ let coreLegacy = angular.module("coreLegacy", [
     
     coreLegacy.run(['$rootScope', '$state', '$transitions',
         function ($rootScope, $state, $transitions) {
-            $rootScope.$state = $state.current;
+            $rootScope.state = $state.current;
             $transitions.onSuccess({}, function($transitions) {
-                $rootScope.$state = $transitions.$to();
+                $rootScope.state = $transitions.$to();
             });
         }
     ]);

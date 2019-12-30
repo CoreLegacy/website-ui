@@ -28,7 +28,6 @@
 <body>
     <header class="container" ng-controller="HeaderController as vm">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-
             <a class="navbar-brand m-r-20" href="#">Core Legacy</a>
             <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
@@ -95,7 +94,16 @@
                         </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" ui-sref="login">Log In</a>
+                        <a class="nav-link"
+                           ui-sref="login"
+                           ng-hide="vm.User">
+                            Log In
+                        </a>
+                        <a class="nav-link"
+                           ui-sref="login"
+                           ng-show="vm.User">
+                            Account
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -177,10 +185,12 @@
     <script src="app/components/contribute/mentor/mentorController.js"></script>
     <script src="app/components/contribute/sponsor/sponsorController.js"></script>
     <script src="app/components/contribute/volunteer/volunteerController.js"></script>
+    <script src="app/components/account/accountController.js"></script>
 
     <!--   Services   -->
     <script src="app/services/apiService.js"></script>
     <script src="app/services/dataService.js"></script>
     <script src="app/services/identityService.js"></script>
+    <script src="app/services/viewService.js"></script>
 </body>
 </html>
