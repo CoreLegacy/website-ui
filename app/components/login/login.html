@@ -1,0 +1,39 @@
+<section class="login-container card" ng-controller="LoginController as vm">
+    <header class="login-header">
+        Sign In
+    </header>
+    <section class="login-body form-group">
+        <p class="error-message-container" ng-show="vm.ErrorMessages && vm.ErrorMessages.length > 0">
+            <span class="error-message"
+                  ng-repeat="message in vm.ErrorMessages">
+                {{message}}<br>
+            </span>
+        </p>
+        <form ng-submit="vm.Login()">
+            <input type="email"
+                   placeholder="Email Address"
+                   class="login-input form-control"
+                   ng-model="vm.EmailAddress"/>
+            <input type="password"
+                   placeholder="Password"
+                   class="login-input form-control"
+                   ng-model="vm.Password"/>
+            <p class="recover-password">
+                <a ui-sref="login">Forgot Password?</a>
+            </p>
+            <button class="btn btn-secondary-alt btn-login"
+                    type="submit"
+                    ng-click="vm.Login()">
+                Sign In
+            </button>
+        </form>
+    </section>
+    <footer class="login-footer">
+        <p class="text-gray">
+            Not a member yet?
+        </p>
+        <p class="create-account">
+            <a ui-sref="login">Become a Member</a>
+        </p>
+    </footer>
+</section>

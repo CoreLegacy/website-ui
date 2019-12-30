@@ -40,7 +40,7 @@ body > main {
     max-width: 80%;
 }
 
-footer {
+body > footer {
     background-color: var(--secondary-color);
     padding: 10px;
 }
@@ -178,6 +178,67 @@ li.nav-item {
 
 #footer-bottom {
     margin-top: 20px;
+}
+
+.login-container {
+    text-align: center;
+    margin: 100px auto;
+    max-width: 500px;
+}
+
+.login-container > .login-header {
+    background-color: var(--secondary-color-alt);
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+}
+
+.login-container > .login-body {
+    width: 80%;
+    margin: auto;
+    padding: 75px 15px;
+}
+
+p.recover-password {
+    text-align: right;
+    font-size: 90%;
+}
+
+.btn.btn-login {
+    min-width: 200px;
+}
+
+.login-container > .login-body > input {
+    margin-bottom: 15px;
+}
+
+.login-container > .login-footer {
+    color: black;
+    font-size: 100%;
+}
+.login-container > .login-footer > p.create-account > a {
+    color: var(--primary-color);
+}
+.login-container > .login-footer > *:not(:last-child) {
+    margin-bottom: 0;
+}
+.login-container > .login-footer > *:last-child {
+    margin-bottom: 45px;
+}
+.text-gray {
+    color: lightgray;
+}
+
+p.error-message-container {
+    color: red;
+    text-align: left;
+    font-size: 85%;
+}
+
+section.card {
+    box-shadow: 5px 10px 8px #888888;
+    border-radius: 30px;
+    overflow: hidden;
 }
 
 
