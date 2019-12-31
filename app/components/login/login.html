@@ -1,39 +1,74 @@
-<section class="login-container card" ng-controller="LoginController as vm">
-    <header class="login-header">
-        Sign In
-    </header>
-    <section class="login-body form-group">
-        <p class="error-message-container" ng-show="vm.ErrorMessages && vm.ErrorMessages.length > 0">
+<section ng-controller="LoginController as vm">
+    <section class="login-container card" ng-hide="vm.ShowPasswordRecoveryCard">
+        <header class="login-header">
+            Sign In
+        </header>
+        <section class="login-body form-group">
+            <p class="error-message-container" ng-show="vm.ErrorMessages && vm.ErrorMessages.length > 0">
             <span class="error-message"
                   ng-repeat="message in vm.ErrorMessages">
-                {{message}}<br>
+                <span ng-show="message.startsWith('-')" class="indent"></span> {{message}} <br>
             </span>
-        </p>
-        <form ng-submit="vm.Login()">
-            <input type="email"
-                   placeholder="Email Address"
-                   class="login-input form-control"
-                   ng-model="vm.EmailAddress"/>
-            <input type="password"
-                   placeholder="Password"
-                   class="login-input form-control"
-                   ng-model="vm.Password"/>
-            <p class="recover-password">
-                <a ui-sref="login">Forgot Password?</a>
             </p>
-            <button class="btn btn-secondary-alt btn-login"
-                    type="submit"
-                    ng-click="vm.Login()">
-                Sign In
-            </button>
-        </form>
+            <form ng-submit="vm.Login()">
+                <input type="email"
+                       placeholder="Email Address"
+                       class="login-input form-control"
+                       ng-model="vm.EmailAddress"/>
+                <input type="password"
+                       placeholder="Password"
+                       class="login-input form-control"
+                       ng-model="vm.Password"/>
+                <p class="recover-password" ng-click="vm.ShowPasswordRecoveryOptions(true)">
+                    <span class="cursor-pointer">Forgot Password?</span>
+                </p>
+                <button class="btn btn-secondary-alt btn-login"
+                        type="submit">
+                    Sign In
+                </button>
+            </form>
+        </section>
+        <footer class="login-footer">
+            <p class="text-gray">
+                Not a member yet?
+            </p>
+            <p class="create-account">
+                <a ui-sref="login">Become a Member</a>
+            </p>
+        </footer>
     </section>
-    <footer class="login-footer">
-        <p class="text-gray">
-            Not a member yet?
-        </p>
-        <p class="create-account">
-            <a ui-sref="login">Become a Member</a>
-        </p>
-    </footer>
+
+    <section class="login-container card" ng-show="vm.ShowPasswordRecoveryCard">
+        <header class="login-header">
+            Recover Password
+        </header>
+        <section class="login-body form-group">
+            <h5 class="m-b-40">We'll send you a link to reset your password</h5>
+            <p class="error-message-container m-b-20" ng-show="vm.ErrorMessages && vm.ErrorMessages.length > 0">
+                <span class="error-message"
+                      ng-repeat="message in vm.ErrorMessages">
+                    <span ng-show="message.startsWith('-')" class="indent"></span> {{message}} <br>
+                </span>
+            </p>
+            <form ng-submit="vm.RecoverPassword()">
+                <input type="email"
+                       placeholder="Email Address"
+                       class="login-input form-control m-b-20"
+                       ng-model="vm.EmailAddressToRecover"/>
+                <button class="btn btn-secondary-alt btn-login"
+                        type="submit">
+                    Send Recovery Email
+                </button>
+            </form>
+        </section>
+        <footer class="login-footer">
+            <p class="text-gray">
+                Not a member yet?
+            </p>
+            <p class="create-account">
+                <a ui-sref="login">Become a Member</a>
+            </p>
+        </footer>
+    </section>
+
 </section>
