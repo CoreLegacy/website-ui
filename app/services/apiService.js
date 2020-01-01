@@ -1,38 +1,61 @@
 (function () {
     "use strict";
     
-    coreLegacy.factory("ApiService", ["ENVIRONMENT", "API_ROOT", "IdentityService", "$http", "$q", function (ENVIRONMENT, API_ROOT, IdentityService, $http, $q) {
+    coreLegacy.factory("ApiService",
+        ["ENVIRONMENT", "API_ROOT", "IdentityService", "$http", "$q", "$state",
+            function (ENVIRONMENT, API_ROOT, IdentityService, $http, $q, $state) {
         let user = IdentityService.CurrentUser();
     
-        function RequestDispatcher(request, onSuccess, onError,) {
+        function RequestDispatcher(request, onSuccess, onError) {
             let response = {};
-            response.Promise = $http(request);
-            response.Success = function (callback) {
-                response.successCallback = callback;
+            response.Then = function (success, error) {
+                response.successCallback = success;
+                response.errorCallback = error;
+                if (!response.Promise)
+                    dispatch(request, success, error);
             };
-            response.Error = function (callback) {
-                response.errorCallback = callback;
-            };
-        
-            response.Promise.then(
-                function (data) {
-                    if (data.User)
-                        user.SetAll(data.User);
-                    
-                    if (onSuccess)
-                        onSuccess(data);
-                    
-                    if (response.successCallback)
-                        response.successCallback(data);
-                },
-                function (data, status) {
-                    console.log("Error Making API Request: \n", request, "Response: \n", data, "Status: \n", status);
-                    if (onError)
-                        onError(data, status);
-                    if (response.errorCallback)
-                        response.errorCallback(data, status);
-                }
-            );
+            
+            function dispatch(request, successCallback, errorCallback) {
+                response.Promise = $http(request);
+                response.Promise.then(
+                    function (response) {
+                        let user = IdentityService.CurrentUser();
+                        let data = response.data;
+            
+                        if (data.user) {
+                            IdentityService.SetUser(data.auth_token, data.user);
+                        }
+            
+                        if (data.logged_out) {
+                            IdentityService.ClearUser();
+                            
+                            if (data.session_expired) {
+                                alert("Your session has expired, please log in again.");
+                                $state.go("login");
+                            }
+                            else {
+                                $state.go("home")
+                            }
+                            
+                            return;
+                        }
+            
+                        if (onSuccess)
+                            onSuccess(data);
+            
+                        if (successCallback)
+                            successCallback(data);
+                    },
+                    function (data, status) {
+                        console.log("Error Making API Request: \n", request, "Response: \n", data, "Status: \n", status);
+                        if (onError)
+                            onError(data, status);
+                        
+                        if (errorCallback)
+                            errorCallback(data, status);
+                    }
+                );
+            }
         
             return response;
         }
@@ -58,16 +81,15 @@
         };
     
         let setRequestFields = function (request, data) {
-            if (user) {
-                data.ClientToken = user.ClientToken();
-            }
+            request.headers = { "Content-Type": "application/json" };
+            let user = IdentityService.CurrentUser();
+            if (user)
+                request.headers.Authorization = "Bearer " + user.ClientToken;
             
-            if (request.method.toUpperCase() === "GET") {
+            if (request.method.toUpperCase() === "GET")
                 request.params = data;
-            }
-            else {
+            else
                 request.data = data;
-            }
         };
         
         let resolve = function (promises) {

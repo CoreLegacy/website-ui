@@ -1,0 +1,16 @@
+<section ng-controller="AccountController as vm">
+
+    <section id="user-details-container">
+        <h2>{{vm.User.FirstName}} {{vm.User.LastName}}</h2>
+        <h4>Username:</h4>
+        <p>{{vm.User.Email}}</p>
+        <h4>Role:</h4>
+        <p>{{vm.User.Role}}</p>
+        <h4>Privileges</h4>
+        <p>
+            <span ng-repeat="privilege in vm.User.Privileges">{{privilege}} <br></span>
+        </p>
+    </section>
+
+    <button class="btn btn-primary" ng-click="vm.LogOut()">Log Out</button>
+</section>

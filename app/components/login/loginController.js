@@ -1,7 +1,7 @@
 (function () {
     "use strict";
     
-    coreLegacy.controller("LoginController", ["ApiService", "IdentityService", function(ApiService, IdentityService) {
+    coreLegacy.controller("LoginController", ["ApiService", "IdentityService", "$state", function(ApiService, IdentityService, $state) {
         let vm = this;
         vm.Message = 'hello world';
         vm.EmailAddress = null;
@@ -12,53 +12,40 @@
         
         vm.Login = function() {
             if (validateLogin()){
-                let request = {
+                let requestData = {
                     email: vm.EmailAddress,
-                    password: vm.Password
                 };
-                let response = ApiService.SendRequest("login", request, "POST");
-                response.Success(function(response) {
-                    let data = response.data;
-                    if (data.is_successful) {
-                        IdentityService.SetUser(data.user)
+    
+                let existenceCheck = ApiService.SendRequest("users/exists", requestData, "GET");
+                vm.Loading = true;
+                existenceCheck.Then(
+                    function(response) {
+                        if (response.is_successful){
+                            requestData.password = vm.Password;
+                            // We want auth token stored in a cookie
+                            requestData.with_auth_token = true;
+                            let response = ApiService.SendRequest("login", requestData, "POST");
+                            response.Then(function(response) {
+                                vm.Loading = false;
+                                if (response.is_successful) {
+                                    $state.go("account");
+                                }
+                                else {
+                                    vm.ErrorMessages.push("Password is incorrect.");
+                                }
+                            });
+                        }
+                        else {
+                            vm.Loading = false;
+                            vm.ErrorMessages.push("This email is not registered to a member.");
+                        }
                     }
-                })
+                    ,function(data, status) {
+                        vm.Loading = false;
+                        vm.ErrorMessages.push("Encountered an error while verifying this email, please try again.");
+                    }
+                );
             }
-        };
-        
-        vm.RecoverPassword = function() {
-            vm.ErrorMessages = [];
-            if (!vm.EmailAddressToRecover)
-                vm.ErrorMessages.push("Please provide a valid email address");
-            
-            if (vm.ErrorMessages.length === 0)
-                recoverPassword();
-        };
-        
-        function recoverPassword() {
-            let requestData = {
-                email: vm.EmailAddressToRecover
-            };
-            
-            let existenceCheck = ApiService.SendRequest("users", requestData, "GET");
-            existenceCheck.Success(function(data) {
-                if (data.data.is_successful){
-                    let recoveryRequest = ApiService.SendRequest("registration/password/recover", requestData, "POST");
-                    recoveryRequest.Error(function(data, status) {
-                        vm.ErrorMessages.push("Something went wrong, please try again.");
-                    });
-                }
-                else {
-                    vm.ErrorMessages.push("This email is not registered to a member.");
-                }
-            });
-            existenceCheck.Error(function(data, status) {
-                vm.ErrorMessages.push("Encountered an error while verifying this email, please try again.");
-            })
-        }
-        
-        vm.ShowPasswordRecoveryOptions = function(value) {
-            vm.ShowPasswordRecoveryCard = value;
         };
         
         let validateLogin = function() {

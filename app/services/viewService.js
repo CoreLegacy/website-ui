@@ -14,26 +14,25 @@
             };
             
             let response = ApiService.SendRequest("views", request, "GET");
-            response.Success(function(response) {
-                let data = response.data;
-                if (data.view) {
-                    vm.ViewModel = data.view;
+            response.Then(function(response) {
+                if (response.view) {
+                    vm.ViewModel = response.view;
                     vm.Media = {};
                     vm.Texts = {};
                     
-                    for (let i = 0; i < data.view.media.length; i++) {
-                        let medium = data.view.media[i];
+                    for (let i = 0; i < response.view.media.length; i++) {
+                        let medium = response.view.media[i];
                         vm.Media[medium.identifier] = medium;
                     }
-                    for (let i = 0; i < data.view.texts.length; i++) {
-                        let text = data.view.texts[i];
+                    for (let i = 0; i < response.view.texts.length; i++) {
+                        let text = response.view.texts[i];
                         vm.Texts[text.identifier] = text;
                     }
     
                     if (callback)
-                        callback(data.view);
-                    if (data.view.name)
-                        DataService.Persistent.Save(VIEW_CACHE_KEY + data.view.name, JSON.stringify(data.view));
+                        callback(response.view);
+                    if (response.view.name)
+                        DataService.Persistent.Save(VIEW_CACHE_KEY + response.view.name, JSON.stringify(response.view));
                 }
                 else {
                     vm.ViewModel = {};

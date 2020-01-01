@@ -35,6 +35,12 @@ let coreLegacy = angular.module("coreLegacy", [
                 controller: "LoginController",
                 controllerAs: "vm"
             })
+            .state("login-recover", {
+                url: "/login/recover",
+                templateUrl: "app/components/login/passwordRecovery.html",
+                controller: "PasswordRecoveryController",
+                controllerAs: "vm"
+            })
             .state("register", {
                 url: "/register",
                 templateUrl: "app/components/register/register.html",
@@ -94,7 +100,19 @@ let coreLegacy = angular.module("coreLegacy", [
                 templateUrl: "app/components/contribute/volunteer/volunteer.html",
                 controller: "VolunteerController",
                 controllerAs: "vm"
-            });
+            })
+            .state("account", {
+                url: "/account",
+                templateUrl: "app/components/account/account.html",
+                controller: "AccountController",
+                controllerAs: "vm"
+            })
+            .state("account-create", {
+                url: "/account/create",
+                templateUrl: "app/components/account/createAccount.html",
+                controller: "CreateAccountController",
+                controllerAs: "vm"
+            })
     }]);
     
 })(coreLegacy);
