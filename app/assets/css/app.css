@@ -202,6 +202,11 @@ li.nav-item {
 p.recover-password {
     text-align: right;
     font-size: 90%;
+    color: #007bff;
+}
+
+p.recover-password:hover {
+    text-decoration: underline;
 }
 
 .btn.btn-login {
@@ -239,6 +244,11 @@ section.card {
     box-shadow: 5px 10px 8px #888888;
     border-radius: 30px;
     overflow: hidden;
+}
+
+span.indent {
+    width: 20px;
+    display: inline-block;
 }
 
 

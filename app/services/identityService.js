@@ -12,15 +12,9 @@
         
         let onUpdateCallback = null;
         
-        function User(userData) {
-            this.SetAll = setAll;
-            this.Role = getRole;
-            this.Privileges = getPrivileges;
-            this.FirstName = getFirstName;
-            this.LastName = getLastName;
-            this.Email = getEmail;
-            this.Title = getTitle;
-            this.ClientToken = getClientToken;
+        function User(clientToken, userData) {
+            if (clientToken)
+                DataService.Session.Save(CLIENT_TOKEN, clientToken);
             
             if (userData) {
                 DataService.Session.Save(FIRST_NAME_KEY, userData.first_name);
@@ -29,6 +23,15 @@
                 DataService.Session.Save(ROLE_KEY, userData.role);
                 DataService.Session.Save(PRIVILEGES_KEY, userData.privileges);
             }
+    
+            this.SetAll = setAll;
+            this.Role = getRole();
+            this.Privileges = getPrivileges();
+            this.FirstName = getFirstName();
+            this.LastName = getLastName();
+            this.Email = getEmail();
+            this.Title = getTitle();
+            this.ClientToken = getClientToken();
         }        
     
         function setAll(user) {
@@ -86,7 +89,9 @@
         
         function getPrivileges() {
             let privileges = DataService.Session.Get(PRIVILEGES_KEY);
-            if (!privileges)
+            if (privileges)
+                privileges = privileges.split(",");
+            else
                 privileges = [];
             
             return privileges;
@@ -155,8 +160,8 @@
             return new User();
         }
         
-        function setUser(userData) {
-            let user = new User(userData);
+        function setUser(clientToken, userData) {
+            let user = new User(clientToken, userData);
     
             if (onUpdateCallback)
                 onUpdateCallback(user);
