@@ -1,0 +1,66 @@
+<section ng-controller="CreateAccountController as vm">
+
+    <section class="card login-container">
+        <header>
+            Become a Member
+        </header>
+
+        <section class="card-body m-t-30 m-b-50">
+            <p class="error-message-container" ng-show="vm.ErrorMessages && vm.ErrorMessages.length > 0">
+            <span class="error-message"
+                  ng-repeat="message in vm.ErrorMessages">
+                <span ng-show="message.startsWith('-')" class="indent"></span> {{message}} <br>
+            </span>
+            </p>
+            <form ng-submit="vm.CreateAccount()">
+                <input type="text"
+                       required
+                       placeholder="First Name"
+                       class="login-input form-control"
+                       ng-model="vm.FirstName"/>
+                <input type="text"
+                       required
+                       placeholder="Last Name"
+                       class="login-input form-control"
+                       ng-model="vm.LastName"/>
+                <input type="email"
+                       required
+                       placeholder="Email Address"
+                       class="login-input form-control m-b-30"
+                       ng-model="vm.EmailAddress"/>
+                <input type="password"
+                       required
+                       placeholder="Password"
+                       class="login-input form-control"
+                       ng-model="vm.Password"/>
+                <input type="password"
+                       required
+                       placeholder="Confirm Password"
+                       class="login-input form-control m-b-35"
+                       ng-model="vm.ConfirmPassword"/>
+                <button class="btn btn-primary"
+                        type="button"
+                        ng-show="vm.Loading"
+                        disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span class="sr-only">Loading...</span>
+                </button>
+                <button class="btn btn-secondary-alt btn-login"
+                        type="submit"
+                        ng-hide="vm.Loading">
+                    Create Account
+                </button>
+            </form>
+        </section>
+
+        <footer class="login-footer">
+            <p class="text-gray">
+                Already have an account?
+            </p>
+            <p class="create-account">
+                <a ui-sref="login">Sign In</a>
+            </p>
+        </footer>
+    </section>
+
+</section>

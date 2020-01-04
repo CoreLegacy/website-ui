@@ -3,7 +3,7 @@
     
     coreLegacy.controller("LoginController", ["ApiService", "IdentityService", "$state", function(ApiService, IdentityService, $state) {
         let vm = this;
-        vm.Message = 'hello world';
+        
         vm.EmailAddress = null;
         vm.EmailAddressToRecover = null;
         vm.ShowPasswordRecoveryCard = false;

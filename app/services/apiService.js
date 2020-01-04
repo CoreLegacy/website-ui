@@ -6,7 +6,7 @@
             function (ENVIRONMENT, API_ROOT, IdentityService, $http, $q, $state) {
         let user = IdentityService.CurrentUser();
     
-        function RequestDispatcher(request, onSuccess, onError) {
+        function RequestDispatcher(request, onSuccess, onError, ignoreUserInResponse) {
             let response = {};
             response.Then = function (success, error) {
                 response.successCallback = success;
@@ -22,7 +22,7 @@
                         let user = IdentityService.CurrentUser();
                         let data = response.data;
             
-                        if (data.user) {
+                        if (!ignoreUserInResponse && data.user) {
                             IdentityService.SetUser(data.auth_token, data.user);
                         }
             
@@ -60,9 +60,9 @@
             return response;
         }
         
-        let sendRequest = function (resource, data, method) {
+        let sendRequest = function (resource, data, method, ignoreUserInResponse) {
             let request = buildRequest(resource, data, method);
-            let response = new RequestDispatcher(request);
+            let response = new RequestDispatcher(request, ignoreUserInResponse);
         
             return response;
         };
