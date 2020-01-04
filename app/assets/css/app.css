@@ -186,7 +186,7 @@ li.nav-item {
     max-width: 500px;
 }
 
-.login-container > .login-header {
+.login-container > header {
     background-color: var(--secondary-color-alt);
     color: white;
     font-weight: bold;
