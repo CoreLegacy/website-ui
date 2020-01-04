@@ -1,7 +1,7 @@
 (function () {
     "use strict";
     
-    coreLegacy.controller("CreateAccountController", ["ApiService", function HomeController(ApiService) {
+    coreLegacy.controller("CreateAccountController", ["ApiService", "$state", function HomeController(ApiService, $state) {
         let vm = this;
         
         vm.EmailAddress = null;
@@ -40,7 +40,8 @@
                                 }
                             },
                                 function(data, status) {
-                                    vm.ErrorMessages.push("Something went wrong while creating account. Please try again.")
+                                    vm.Loading = false;
+                                    vm.ErrorMessages.push("Something went wrong while creating account. Please try again.");
                                 }
                             );
                         }
