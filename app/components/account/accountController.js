@@ -13,6 +13,7 @@
             request.Then(
                 function(data){
                     vm.Loading = false;
+                    IdentityService.ClearUser();
                     // ApiService will redirect
                 },
                 function (data, status) {

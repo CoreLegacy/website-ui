@@ -8,13 +8,13 @@
         const LAST_NAME_KEY = "lastName";
         const EMAIL_KEY = "email";
         const TITLE_KEY = "title";
-        const CLIENT_TOKEN = "clientToken";
+        const CLIENT_TOKEN_KEY = "clientToken";
         
         let onUpdateCallback = null;
         
         function User(clientToken, userData) {
             if (clientToken)
-                DataService.Session.Save(CLIENT_TOKEN, clientToken);
+                DataService.Session.Save(CLIENT_TOKEN_KEY, clientToken);
             
             if (userData) {
                 DataService.Session.Save(FIRST_NAME_KEY, userData.first_name);
@@ -48,7 +48,11 @@
         }
         
         function setClientToken(token) {
-            let result = DataService.Session.Save(CLIENT_TOKEN, token);
+            let result = null;
+            if (token)
+                result = DataService.Session.Save(CLIENT_TOKEN_KEY, token);
+            else
+                DataService.Session.Remove(CLIENT_TOKEN_KEY);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -57,12 +61,16 @@
         }
         
         function getClientToken() {
-            let result = DataService.Session.Get(CLIENT_TOKEN);
+            let result = DataService.Session.Get(CLIENT_TOKEN_KEY);
             return result;
         }
         
         function setRole(role) {
-            let result = DataService.Session.Save(ROLE_KEY, role);
+            let result = null;
+            if (role)
+                result = DataService.Session.Save(ROLE_KEY, role);
+            else
+                DataService.Session.Remove(ROLE_KEY);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -78,8 +86,12 @@
         function setPrivileges(user, privileges) {
             if (typeof privileges === "string")
                 privileges = privileges.split(",");
-            
-            let result = DataService.Session.Save(PRIVILEGES_KEY, privileges);
+    
+            let result = null;
+            if (privileges)
+                result = DataService.Session.Save(PRIVILEGES_KEY, privileges);
+            else
+                DataService.Session.Remove(PRIVILEGES_KEY);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -98,7 +110,11 @@
         }
     
         function setFirstName(firstName) {
-            let result = DataService.Session.Save(FIRST_NAME_KEY, firstName);
+            let result = null;
+            if (firstName)
+                result = DataService.Session.Save(FIRST_NAME_KEY, firstName);
+            else
+                DataService.Session.Remove(FIRST_NAME_KEY);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -112,7 +128,11 @@
         }
     
         function setLastName(lastName) {
-            let result = DataService.Session.Save(LAST_NAME_KEY, lastName);
+            let result = null;
+            if (lastName)
+                result = DataService.Session.Save(LAST_NAME_KEY, lastName);
+            else
+                DataService.Session.Remove(LAST_NAME_KEY);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -126,7 +146,11 @@
         }
     
         function setEmail(email) {
-            let result = DataService.Session.Save(EMAIL_KEY, email);
+            let result = null;
+            if (email)
+                result = DataService.Session.Save(EMAIL_KEY, email);
+            else
+                DataService.Session.Remove(EMAIL_KEY);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -140,7 +164,11 @@
         }
     
         function setTitle(title) {
-            let result = DataService.Session.Save(TITLE_KEY, title);
+            let result = null;
+            if (title)
+                result = DataService.Session.Save(TITLE_KEY, title);
+            else
+                DataService.Session.Remove(TITLE_KEY);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
