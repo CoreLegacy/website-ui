@@ -8,51 +8,40 @@
         const LAST_NAME_KEY = "lastName";
         const EMAIL_KEY = "email";
         const TITLE_KEY = "title";
-        const CLIENT_TOKEN_KEY = "clientToken";
+        const CLIENT_TOKEN_KEY = "authToken";
         
         let onUpdateCallback = null;
         
-        function User(clientToken, userData) {
-            if (clientToken)
-                DataService.Session.Save(CLIENT_TOKEN_KEY, clientToken);
-            
+        function User(userData) {
             if (userData) {
-                DataService.Session.Save(FIRST_NAME_KEY, userData.first_name);
-                DataService.Session.Save(LAST_NAME_KEY, userData.last_name);
-                DataService.Session.Save(EMAIL_KEY, userData.email);
-                DataService.Session.Save(ROLE_KEY, userData.role);
-                DataService.Session.Save(PRIVILEGES_KEY, userData.privileges);
+                setUserField(FIRST_NAME_KEY, userData.first_name);
+                setUserField(LAST_NAME_KEY, userData.last_name);
+                setUserField(EMAIL_KEY, userData.email);
+                setUserField(ROLE_KEY, userData.role);
+                setUserField(PRIVILEGES_KEY, userData.privileges);
             }
     
-            this.SetAll = setAll;
             this.Role = getRole();
             this.Privileges = getPrivileges();
             this.FirstName = getFirstName();
             this.LastName = getLastName();
             this.Email = getEmail();
             this.Title = getTitle();
-            this.ClientToken = getClientToken();
-        }        
-    
-        function setAll(user) {
-            setFirstName(user.FirstName);
-            setLastName(user.LastName);
-            setTitle(user.Title);
-            setEmail(user.Email);
-            setRole(user.Role);
-            setPrivileges(user.Privileges);
-            setClientToken(user.ClientToken);
-            
-            if (onUpdateCallback)
-                onUpdateCallback(getUser());
+            this.AuthToken = getAuthToken();
         }
         
-        function setClientToken(token) {
+        function setUserField(key, value) {
             let result = null;
-            if (token)
-                result = DataService.Session.Save(CLIENT_TOKEN_KEY, token);
+            if (value)
+                result = DataService.Session.Save(key, value);
             else
-                DataService.Session.Remove(CLIENT_TOKEN_KEY);
+                DataService.Session.Remove(key);
+            
+            return result;
+        }
+        
+        function setAuthToken(token) {
+            let result = setUserField(CLIENT_TOKEN_KEY, token);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -60,17 +49,13 @@
             return result;
         }
         
-        function getClientToken() {
+        function getAuthToken() {
             let result = DataService.Session.Get(CLIENT_TOKEN_KEY);
             return result;
         }
         
         function setRole(role) {
-            let result = null;
-            if (role)
-                result = DataService.Session.Save(ROLE_KEY, role);
-            else
-                DataService.Session.Remove(ROLE_KEY);
+            let result = setUserField(ROLE_KEY, role);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -87,11 +72,7 @@
             if (typeof privileges === "string")
                 privileges = privileges.split(",");
     
-            let result = null;
-            if (privileges)
-                result = DataService.Session.Save(PRIVILEGES_KEY, privileges);
-            else
-                DataService.Session.Remove(PRIVILEGES_KEY);
+            let result = setUserField(PRIVILEGES_KEY, privileges);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -110,11 +91,7 @@
         }
     
         function setFirstName(firstName) {
-            let result = null;
-            if (firstName)
-                result = DataService.Session.Save(FIRST_NAME_KEY, firstName);
-            else
-                DataService.Session.Remove(FIRST_NAME_KEY);
+            let result = setUserField(FIRST_NAME_KEY, firstName);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -128,11 +105,7 @@
         }
     
         function setLastName(lastName) {
-            let result = null;
-            if (lastName)
-                result = DataService.Session.Save(LAST_NAME_KEY, lastName);
-            else
-                DataService.Session.Remove(LAST_NAME_KEY);
+            let result = setUserField(LAST_NAME_KEY, lastName);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -146,11 +119,7 @@
         }
     
         function setEmail(email) {
-            let result = null;
-            if (email)
-                result = DataService.Session.Save(EMAIL_KEY, email);
-            else
-                DataService.Session.Remove(EMAIL_KEY);
+            let result = setUserField(EMAIL_KEY, email);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -164,11 +133,7 @@
         }
     
         function setTitle(title) {
-            let result = null;
-            if (title)
-                result = DataService.Session.Save(TITLE_KEY, title);
-            else
-                DataService.Session.Remove(TITLE_KEY);
+            let result = setUserField(TITLE_KEY, title);
     
             if (onUpdateCallback)
                 onUpdateCallback(getUser());
@@ -188,8 +153,8 @@
             return new User();
         }
         
-        function setUser(clientToken, userData) {
-            let user = new User(clientToken, userData);
+        function setUser(userData) {
+            let user = new User(userData);
     
             if (onUpdateCallback)
                 onUpdateCallback(user);
@@ -203,6 +168,7 @@
             setEmail(null);
             setRole(null);
             setPrivileges(null);
+            setAuthToken(null);
     
             if (onUpdateCallback)
                 onUpdateCallback(null);
@@ -216,7 +182,8 @@
             CurrentUser: getUser,
             SetUser: setUser,
             ClearUser: clearUser,
-            OnUserUpdate: onUserUpdate
+            OnUserUpdate: onUserUpdate,
+            SetAuthToken: setAuthToken
         };
     }]);
     

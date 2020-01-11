@@ -1,0 +1,31 @@
+<modal ng-show="show" ng-click="BackdropClick($event)">
+    <modal-content>
+        <header>
+            <span class="modal-title">{{title}}</span>
+            <span class="btn-modal-close"
+                  ng-click="Close()">
+                &times;
+            </span>
+        </header>
+        <section class="container bootstrap-in-modal">
+                <ng-transclude></ng-transclude>
+        </section>
+        <footer>
+            <button class="btn btn-sm btn-info pull-left"
+                    ng-click="CallTertiaryAction()"
+                    ng-hide="hideButtons || !tertiaryText">
+                {{tertiaryText}}
+            </button>
+            <button class="btn btn-sm btn-primary btn-submit"
+                    ng-click="CallPositiveAction()"
+                    ng-hide="hideButtons || !positiveText">
+                {{positiveText}}
+            </button>
+            <button class="btn btn-sm btn-danger btn-submit"
+                    ng-click="CallNegativeAction()"
+                    ng-hide="hideButtons || !negativeText">
+                {{negativeText}}
+            </button>
+        </footer>
+    </modal-content>
+</modal>

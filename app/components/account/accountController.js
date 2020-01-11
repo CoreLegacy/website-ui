@@ -3,10 +3,14 @@
     
     coreLegacy.controller("AccountController", ["ApiService", "IdentityService", function HomeController(ApiService, IdentityService) {
         let vm = this;
-        vm.ErrorMessages = [];
-        vm.User = IdentityService.CurrentUser();
-        
-        vm.LogOut = function() {
+    
+        let openPasswordResetModal = function() {
+            vm.PasswordReset.Show = true;
+        };
+        let resetPassword = function() {
+            console.log("Password-o Reset-o");
+        };
+        let logout = function() {
             vm.ErrorMessages = [];
             let request = ApiService.SendRequest("logout", null, "GET");
             vm.Loading = true;
@@ -21,7 +25,18 @@
                     vm.ErrorMessages.push("Failed to log out. Try again.")
                 }
             );
-        }
+        };
+        
+        vm.ErrorMessages = [];
+        vm.User = IdentityService.CurrentUser();
+        vm.PasswordReset = {
+            Show: false,
+            OpenModal: openPasswordResetModal,
+            OldPassword: null,
+            NewPassword: null
+        };
+        vm.LogOut = logout;
+        vm.ResetPassword = resetPassword;
         
     }]);
     

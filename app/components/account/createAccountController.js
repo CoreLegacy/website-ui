@@ -70,7 +70,7 @@
             }
             
             if (vm.Password !== vm.ConfirmPassword)
-                vm.ErrorMessages.push("Passwords do not match")
+                vm.ErrorMessages.push("Passwords do not match");
         
             return vm.ErrorMessages.length === 0
         };

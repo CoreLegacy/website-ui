@@ -20,7 +20,7 @@
                 email: vm.EmailAddressToRecover
             };
             
-            let existenceCheck = ApiService.SendRequest("users", requestData, "GET");
+            let existenceCheck = ApiService.SendRequest("users/exists", requestData, "GET");
             vm.Loading = true;
             existenceCheck.Then(
                 function(response) {

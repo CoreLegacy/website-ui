@@ -252,6 +252,11 @@ span.indent {
     display: inline-block;
 }
 
+#account-details-container {
+    width: 80%;
+    margin: auto;
+}
+
 
 /********************************************************************
   Breakpoint xl

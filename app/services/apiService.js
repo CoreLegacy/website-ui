@@ -23,7 +23,8 @@
                         let data = response.data;
             
                         if (!ignoreUserInResponse && data.user) {
-                            IdentityService.SetUser(data.auth_token, data.user);
+                            IdentityService.SetUser(data.user);
+                            IdentityService.SetAuthToken(data.auth_token);
                         }
             
                         if (data.logged_out) {
@@ -83,8 +84,8 @@
         let setRequestFields = function (request, data) {
             request.headers = { "Content-Type": "application/json" };
             let user = IdentityService.CurrentUser();
-            if (user)
-                request.headers.Authorization = "Bearer " + user.ClientToken;
+            if (user && user.AuthToken)
+                request.headers.Authorization = "Bearer " + user.AuthToken;
             
             if (request.method.toUpperCase() === "GET")
                 request.params = data;

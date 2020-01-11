@@ -1,16 +1,58 @@
 <section ng-controller="AccountController as vm">
 
-    <section id="user-details-container">
-        <h2>{{vm.User.FirstName}} {{vm.User.LastName}}</h2>
-        <h4>Username:</h4>
-        <p>{{vm.User.Email}}</p>
-        <h4>Role:</h4>
-        <p>{{vm.User.Role}}</p>
-        <h4>Privileges</h4>
-        <p>
-            <span ng-repeat="privilege in vm.User.Privileges">{{privilege}} <br></span>
-        </p>
+    <section id="account-details-container">
+        <section id="user-details-container">
+            <h2>{{vm.User.FirstName}} {{vm.User.LastName}}</h2>
+            <h4>Username:</h4>
+            <p>{{vm.User.Email}}</p>
+            <h4>Role:</h4>
+            <p>{{vm.User.Role}}</p>
+            <h4>Privileges</h4>
+            <p>
+                <span ng-repeat="privilege in vm.User.Privileges">{{privilege}} <br></span>
+            </p>
+        </section>
+
+        <button class="btn btn-primary" ng-click="vm.LogOut()">Log Out</button>
+        <button ng-click="vm.PasswordReset.OpenModal()" class="btn btn-primary">Reset Password</button>
     </section>
 
-    <button class="btn btn-primary" ng-click="vm.LogOut()">Log Out</button>
+    <cla-modal data-title="Reset Password"
+               data-show="vm.PasswordReset.Show"
+               data-positive-text="Reset"
+               data-positive-action="vm.ResetPassword()">
+        <p class="error-message-container" ng-show="vm.ErrorMessages && vm.ErrorMessages.length > 0">
+            <span class="error-message"
+                  ng-repeat="message in vm.ErrorMessages">
+                <span ng-show="message.startsWith('-')" class="indent"></span> {{message}} <br>
+            </span>
+        </p>
+        <form ng-submit="vm.ResetPassword()">
+            <input type="password"
+                   required
+                   placeholder="Old Password"
+                   class="login-input form-control m-b-20"
+                   ng-model="vm.Password"/>
+            <input type="password"
+                   required
+                   placeholder="New Password"
+                   class="login-input form-control"
+                   ng-model="vm.Password"/>
+            <input type="password"
+                   required
+                   placeholder="Confirm Password"
+                   class="login-input form-control"
+                   ng-model="vm.ConfirmPassword"/>
+            <p class="recover-password m-b-15">
+                <a ui-sref="login-recover">Forgot Password?</a>
+            </p>
+            <button class="btn btn-primary"
+                    type="button"
+                    ng-show="vm.Loading"
+                    disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="sr-only">Loading...</span>
+            </button>
+        </form>
+    </cla-modal>
 </section>

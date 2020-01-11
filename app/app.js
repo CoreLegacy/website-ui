@@ -32,6 +32,8 @@ let coreLegacy = angular.module("coreLegacy", [
                     $rootScope.state = $transitions.$to();
                 }
                 
+                
+                
             });
         }
     ]);
@@ -222,6 +224,28 @@ let coreLegacy = angular.module("coreLegacy", [
                     redirectTo: null
                 }
             })
+            .state("account-password-recover", {
+                url: "/account/password/recover/:Key",
+                templateUrl: "app/components/account/accountPasswordRecover.html",
+                controller: "AccountPasswordRecoverController",
+                controllerAs: "vm",
+                data: {
+                    requiredParams: ["Key"]
+                }
+            })
+            .state("account-password-reset", {
+                url: "/account/password/reset",
+                templateUrl: "app/components/account/accountPasswordReset.html",
+                controller: "AccountPasswordResetController",
+                controllerAs: "vm",
+                data: {
+                    requiresLogin: true,
+                    requiredRoles: [],
+                    requiredPrivileges: [],
+                    redirectTo: null
+                }
+            })
+        
     }]);
     
 })(coreLegacy);
