@@ -13,7 +13,7 @@ modal {
 modal-content {
     width: 50%;
     display: block;
-    margin: 25% auto;
+    margin: 125px auto;
     border-radius: 15px;
     border: 1px solid;
     z-index: 1000;
