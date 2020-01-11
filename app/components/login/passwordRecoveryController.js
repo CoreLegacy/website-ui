@@ -1,7 +1,7 @@
 (function () {
     "use strict";
     
-    coreLegacy.controller("PasswordRecoveryController", ["ApiService", "IdentityService", function(ApiService, IdentityService) {
+    coreLegacy.controller("PasswordRecoveryController", ["ApiService", "IdentityService", "$state", function(ApiService, IdentityService, $state) {
         let vm = this;
         vm.EmailAddressToRecover = null;
         vm.ErrorMessages = [];
@@ -20,7 +20,7 @@
                 email: vm.EmailAddressToRecover
             };
             
-            let existenceCheck = ApiService.SendRequest("users", requestData, "GET");
+            let existenceCheck = ApiService.SendRequest("users/exists", requestData, "GET");
             vm.Loading = true;
             existenceCheck.Then(
                 function(response) {
@@ -29,6 +29,7 @@
                     recoveryRequest.Then(
                         function (data) {
                             vm.Loading = false;
+                            $state.go("login");
                         },
                         function(data, status) {
                             vm.Loading = false;

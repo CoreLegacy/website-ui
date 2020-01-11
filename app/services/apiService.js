@@ -22,10 +22,6 @@
                         let user = IdentityService.CurrentUser();
                         let data = response.data;
             
-                        if (!ignoreUserInResponse && data.user) {
-                            IdentityService.SetUser(data.auth_token, data.user);
-                        }
-            
                         if (data.logged_out) {
                             IdentityService.ClearUser();
                             
@@ -83,8 +79,8 @@
         let setRequestFields = function (request, data) {
             request.headers = { "Content-Type": "application/json" };
             let user = IdentityService.CurrentUser();
-            if (user)
-                request.headers.Authorization = "Bearer " + user.ClientToken;
+            if (user && user.AuthToken)
+                request.headers.Authorization = "Bearer " + user.AuthToken;
             
             if (request.method.toUpperCase() === "GET")
                 request.params = data;
