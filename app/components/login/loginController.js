@@ -1,17 +1,25 @@
 (function () {
     "use strict";
     
-    coreLegacy.controller("LoginController", ["ApiService", "IdentityService", "$state", function(ApiService, IdentityService, $state) {
+    coreLegacy.controller("LoginController", ["ApiService", "IdentityService", "$state", "DataService", function(ApiService, IdentityService, $state, DataService) {
         let vm = this;
+        let LOGIN_KEY = "saved-login";
         
-        vm.EmailAddress = null;
+        vm.EmailAddress = DataService.Persistent.Get(LOGIN_KEY);
         vm.EmailAddressToRecover = null;
         vm.ShowPasswordRecoveryCard = false;
         vm.Password = null;
+        vm.RememberMe = !!vm.EmailAddress;
         vm.ErrorMessages = [];
         
         vm.Login = function() {
+            if (vm.EmailAddress && vm.RememberMe)
+                DataService.Persistent.Save(LOGIN_KEY, vm.EmailAddress.toLowerCase());
+            else if (vm.EmailAddress && !vm.RememberMe)
+                DataService.Persistent.Remove(LOGIN_KEY);
+            
             if (validateLogin()){
+                
                 let requestData = {
                     email: vm.EmailAddress,
                 };
@@ -28,6 +36,8 @@
                             response.Then(function(response) {
                                 vm.Loading = false;
                                 if (response.is_successful) {
+                                    IdentityService.SetUser(response.user);
+                                    IdentityService.SetAuthToken(response.auth_token);
                                     $state.go("account");
                                 }
                                 else {

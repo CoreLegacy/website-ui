@@ -1,7 +1,7 @@
 (function () {
     "use strict";
     
-    coreLegacy.controller("PasswordRecoveryController", ["ApiService", "IdentityService", function(ApiService, IdentityService) {
+    coreLegacy.controller("PasswordRecoveryController", ["ApiService", "IdentityService", "$state", function(ApiService, IdentityService, $state) {
         let vm = this;
         vm.EmailAddressToRecover = null;
         vm.ErrorMessages = [];
@@ -29,6 +29,7 @@
                     recoveryRequest.Then(
                         function (data) {
                             vm.Loading = false;
+                            $state.go("login");
                         },
                         function(data, status) {
                             vm.Loading = false;

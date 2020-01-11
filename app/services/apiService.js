@@ -22,11 +22,6 @@
                         let user = IdentityService.CurrentUser();
                         let data = response.data;
             
-                        if (!ignoreUserInResponse && data.user) {
-                            IdentityService.SetUser(data.user);
-                            IdentityService.SetAuthToken(data.auth_token);
-                        }
-            
                         if (data.logged_out) {
                             IdentityService.ClearUser();
                             

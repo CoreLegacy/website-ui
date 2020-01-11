@@ -1,53 +1,139 @@
-<section ng-controller="AccountController as vm">
+<section id="account-page" ng-controller="AccountController as vm">
 
+    <p class="error-message-container" ng-show="vm.ErrorMessages && vm.ErrorMessages.length > 0">
+            <span class="error-message"
+                  ng-repeat="message in vm.ErrorMessages">
+                <span ng-show="message.startsWith('-')" class="indent"></span> {{message}} <br>
+            </span>
+    </p>
     <section id="account-details-container">
         <section id="user-details-container">
-            <h2>{{vm.User.FirstName}} {{vm.User.LastName}}</h2>
-            <h4>Username:</h4>
-            <p>{{vm.User.Email}}</p>
-            <h4>Role:</h4>
-            <p>{{vm.User.Role}}</p>
-            <h4>Privileges</h4>
-            <p>
-                <span ng-repeat="privilege in vm.User.Privileges">{{privilege}} <br></span>
-            </p>
-        </section>
+            <section>
+                <h4 class="font-weight-bold">Personal Information</h4>
+                <hr/>
+                <table class="table table-borderless table-sm">
+                    <tr>
+                        <td class="font-weight-bold">
+                            First Name
+                        </td>
+                        <td>
+                            {{vm.User.FirstName}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Last Name
+                        </td>
+                        <td>
+                            {{vm.User.LastName}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Email Address
+                        </td>
+                        <td>
+                            {{vm.User.Email}}
+                        </td>
+                    </tr>
+                </table>
+            </section>
 
-        <button class="btn btn-primary" ng-click="vm.LogOut()">Log Out</button>
-        <button ng-click="vm.PasswordReset.OpenModal()" class="btn btn-primary">Reset Password</button>
+            <section>
+                <h4 class="font-weight-bold">Notifications</h4>
+                <hr/>
+                <table class="table table-borderless table-sm">
+                    <tr>
+                        <td class="font-weight-bold">
+                            Regular News Updates
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary">Opt Out</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Event Reminders
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary">Opt Out</button>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+
+            <section ng-show="vm.User.Role.toLowerCase() === 'admin'">
+                <h4 class="font-weight-bold">Admin Access Summary</h4>
+                <hr/>
+                <table class="table table-borderless table-sm">
+                    <tr>
+                        <td class="font-weight-bold">
+                            Role
+                        </td>
+                        <td>
+                            {{vm.User.Role}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Site Privileges
+                        </td>
+                        <td>
+                        <span ng-repeat="privilege in vm.User.Privileges">
+                            {{privilege}} <br/>
+                        </span>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <hr/>
+                <table class="table table-borderless table-sm">
+                    <tr>
+                        <td class="font-weight-bold">
+                            <a class="cursor-pointer page-link" ng-click="vm.PasswordReset.OpenModal()">Reset Password</a>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            <a class="cursor-pointer page-link" ng-click="vm.LogOut()">Log Out</a>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+        </section>
     </section>
 
     <cla-modal data-title="Reset Password"
                data-show="vm.PasswordReset.Show"
                data-positive-text="Reset"
                data-positive-action="vm.ResetPassword()">
-        <p class="error-message-container" ng-show="vm.ErrorMessages && vm.ErrorMessages.length > 0">
-            <span class="error-message"
-                  ng-repeat="message in vm.ErrorMessages">
-                <span ng-show="message.startsWith('-')" class="indent"></span> {{message}} <br>
-            </span>
-        </p>
         <form ng-submit="vm.ResetPassword()">
             <input type="password"
                    required
                    placeholder="Old Password"
                    class="login-input form-control m-b-20"
-                   ng-model="vm.Password"/>
+                   ng-model="vm.PasswordReset.OldPassword"/>
             <input type="password"
                    required
                    placeholder="New Password"
                    class="login-input form-control"
-                   ng-model="vm.Password"/>
+                   ng-model="vm.PasswordReset.NewPassword"/>
             <input type="password"
                    required
                    placeholder="Confirm Password"
                    class="login-input form-control"
-                   ng-model="vm.ConfirmPassword"/>
+                   ng-model="vm.PasswordReset.ConfirmPassword"/>
             <p class="recover-password m-b-15">
                 <a ui-sref="login-recover">Forgot Password?</a>
             </p>
             <button class="btn btn-primary"
-                    type="button"
+                    type="submit"
                     ng-show="vm.Loading"
                     disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

@@ -233,18 +233,6 @@ let coreLegacy = angular.module("coreLegacy", [
                     requiredParams: ["Key"]
                 }
             })
-            .state("account-password-reset", {
-                url: "/account/password/reset",
-                templateUrl: "app/components/account/accountPasswordReset.html",
-                controller: "AccountPasswordResetController",
-                controllerAs: "vm",
-                data: {
-                    requiresLogin: true,
-                    requiredRoles: [],
-                    requiredPrivileges: [],
-                    redirectTo: null
-                }
-            })
         
     }]);
     

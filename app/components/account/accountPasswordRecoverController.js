@@ -6,6 +6,7 @@
         vm.ErrorMessages = [];
         vm.User = null;
         vm.Loading = true;
+        vm.EmailAddress = null;
     
     
         let resetKey = $stateParams.Key;
@@ -13,7 +14,7 @@
         let userRequest = ApiService.SendRequest("registration/password/recover/key", data, "POST");
         userRequest.Then(
             function(data) {
-                vm.User = IdentityService.CurrentUser();
+                vm.EmailAddress = data.user.email;
                 vm.Loading = false;
             },
             function(data, status) {
@@ -24,7 +25,7 @@
         
         vm.ResetPassword = function() {
             vm.ErrorMessages = [];
-            let data = { email: vm.User.Email };
+            let data = { email: vm.EmailAddress };
             if (validatePasswordReset(vm.Password)) {
                 vm.Loading = true;
                 data.key = resetKey;

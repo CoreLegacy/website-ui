@@ -13,7 +13,7 @@ modal {
 modal-content {
     width: 50%;
     display: block;
-    margin: 8% auto;
+    margin: 25% auto;
     border-radius: 15px;
     border: 1px solid;
     z-index: 1000;
@@ -87,4 +87,39 @@ modal-content > footer > button:first-child {
 .background-content {
     max-height: 100%;
     overflow: hidden;
+}
+
+
+/********************************************************************
+  Breakpoint xl
+ ********************************************************************/
+@media (max-width: 1200px) {
+
+}
+
+/********************************************************************
+  Breakpoint lg
+ ********************************************************************/
+@media (max-width: 992px) {
+    body > main {
+        max-width: 100%;
+    }
+}
+
+/********************************************************************
+  Breakpoint md
+ ********************************************************************/
+@media screen and (max-width: 768px) {
+    modal-content {
+        width: 80%;
+    }
+}
+
+/********************************************************************
+  Breakpoint sm
+ ********************************************************************/
+@media (max-width: 576px) {
+    modal-content {
+        width: 95%;
+    }
 }
